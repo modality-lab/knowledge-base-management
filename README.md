@@ -9,8 +9,8 @@ These skills follow the [Agent Skills specification](https://agentskills.io/spec
 ### Marketplace
 
 ```
-/plugin marketplace add kramo7a/knowledge-base-managment
-/plugin install knowledge-base-managment@kramo7a
+/plugin marketplace add modality-lab/knowledge-base-managment
+/plugin install knowledge-base-managment@modality-lab
 ```
 
 ### Manually
