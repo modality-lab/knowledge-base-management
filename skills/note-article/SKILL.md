@@ -1,5 +1,5 @@
 ---
-name: parse-article-to-note
+name: note-article
 description: Extract an article/blog/documentation page with text, images, and metadata, and save as an Obsidian note
 ---
 
@@ -7,7 +7,13 @@ Extract the article from the user's URL and save it as an Obsidian note in this 
 
 ## Instructions
 
-### Step 1 — Set up environment
+### Step 1 — Check system dependencies
+
+```bash
+command -v python3 >/dev/null 2>&1 || { echo "ERROR: python3 is required but not found on PATH"; exit 1; }
+```
+
+### Step 2 — Set up environment
 
 If `.venv` does not exist in this skill's directory, create it and install dependencies:
 
@@ -16,7 +22,7 @@ python3 -m venv <this-skill-dir>/.venv
 <this-skill-dir>/.venv/bin/pip install -r <this-skill-dir>/requirements.txt
 ```
 
-### Step 2 — Extract content
+### Step 3 — Extract content
 
 ```bash
 <this-skill-dir>/.venv/bin/python3 <this-skill-dir>/article_extractor.py "<url>"
@@ -24,6 +30,6 @@ python3 -m venv <this-skill-dir>/.venv
 
 Returns JSON: `url`, `platform` (`article`), `title`, `author`, `date`, `text`, `media`, `metadata` (`sitename`, `categories`, `tags`).
 
-### Step 3 — Save as note
+### Step 4 — Save as note
 
-Invoke the `save-content-to-note` skill with the extracted JSON.
+Read `<this-skill-dir>/../shared/save-note.md` and follow its instructions to save the note.

@@ -1,6 +1,6 @@
 ---
-name: parse-youtube-video-to-note
-description: Download a YouTube video, transcribe it with Whisper via parse-audio-to-note, and save as an Obsidian note with timecodes and screenshots
+name: note-youtube-video
+description: Download a YouTube video, transcribe it with Whisper via note-audio, and save as an Obsidian note with timecodes and screenshots
 ---
 
 Download and transcribe the YouTube video from the user's message, then save it as an Obsidian note in this vault.
@@ -9,7 +9,14 @@ Download and transcribe the YouTube video from the user's message, then save it 
 
 ## Instructions
 
-### Step 1 — Set up environment
+### Step 1 — Check system dependencies
+
+```bash
+command -v python3 >/dev/null 2>&1 || { echo "ERROR: python3 is required but not found on PATH"; exit 1; }
+command -v ffmpeg >/dev/null 2>&1 || { echo "ERROR: ffmpeg is required but not found on PATH. Install via: brew install ffmpeg"; exit 1; }
+```
+
+### Step 2 — Set up environment
 
 If `.venv` does not exist in this skill's directory, create it and install dependencies:
 
@@ -18,7 +25,7 @@ python3 -m venv <this-skill-dir>/.venv
 <this-skill-dir>/.venv/bin/pip install -r <this-skill-dir>/requirements.txt
 ```
 
-### Step 2 — Download audio and metadata
+### Step 3 — Download audio and metadata
 
 ```bash
 <this-skill-dir>/.venv/bin/python3 <this-skill-dir>/youtube_downloader.py "<url>" 2>/dev/null
@@ -40,17 +47,15 @@ Returns JSON:
 }
 ```
 
-### Step 3 — Transcribe via parse-audio-to-note
+### Step 4 — Transcribe via note-audio
 
-Use the `parse-audio-to-note` skill to transcribe the downloaded audio file at `audio_path`. Pass any user-provided screenshots along.
+Use the `note-audio` skill to transcribe the downloaded audio file at `audio_path`. Pass any user-provided screenshots along.
 
-**Important:** The parse-audio-to-note skill will handle transcription, analysis, and vault location selection. But you need to override the note format with YouTube-specific metadata (see Step 4).
+**Important:** The `note-audio` skill will handle transcription and analysis. Override the note format with YouTube-specific metadata (see Step 5).
 
-### Step 4 — Create the note
+### Step 5 — Create the note
 
-After transcription, create the note with YouTube-specific frontmatter and timecoded outline.
-
-The note format should be:
+After transcription, create the note with YouTube-specific frontmatter and timecoded outline:
 
 ```markdown
 ---

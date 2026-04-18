@@ -1,28 +1,23 @@
----
-name: save-content-to-note
-description: Save extracted web content (JSON) as an Obsidian note — vault location, media copy, note creation
----
+# Save as Obsidian Note
 
-Save the extracted content JSON as a structured Obsidian note. Called by `parse-tweet-to-note`, `parse-instagram-post-to-note`, `parse-reddit-post-to-note`, and `parse-article-to-note` after extraction.
+Save the extracted content JSON as a structured Obsidian note.
 
 **Env vars:**
 - `NOTE_LANGUAGE` — note language: `auto` (default, matches content language), or a language code like `en`, `ru`
 
-## Instructions
-
-### Step 1 — Review media
+## Step 1 — Review media
 
 Read any files listed in the `media` array of the JSON to understand the visual content before writing the note.
 
-### Step 2 — Choose vault location
+## Step 2 — Choose vault location
 
 Use `ls` to explore the vault and find the best existing folder for this content. If there are multiple appropriate locations, ask the user to choose.
 
-### Step 3 — Copy media
+## Step 3 — Copy media
 
 Copy all media files (images, videos) to `<target-folder>/attachments/` with descriptive filenames.
 
-### Step 4 — Create the note
+## Step 4 — Create the note
 
 Create `<target-folder>/<descriptive-title>.md`:
 
