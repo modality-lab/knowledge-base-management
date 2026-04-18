@@ -1,0 +1,8 @@
+{
+  "name": "knowledge-base-management",
+  "version": "1.0.0",
+  "description": "Agent skills for saving web content and media to an Obsidian knowledge base",
+  "author": {
+    "name": "modality-lab"
+  }
+}
