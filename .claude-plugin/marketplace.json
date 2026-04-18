@@ -1,0 +1,14 @@
+{
+  "name": "modality-lab-knowledge-base-management",
+  "owner": {
+    "name": "modality-lab"
+  },
+  "plugins": [
+    {
+      "name": "knowledge-base-management",
+      "source": "./",
+      "description": "Agent skills for saving web content and media to an Obsidian knowledge base",
+      "version": "1.0.0"
+    }
+  ]
+}
