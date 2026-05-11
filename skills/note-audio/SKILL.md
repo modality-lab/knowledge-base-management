@@ -6,9 +6,9 @@ description: Transcribe a local audio or video file with Whisper and save as an 
 Transcribe the audio/video file from the user's message and save it as an Obsidian note in this vault.
 
 - `ffmpeg` must be available on PATH.
-- `WHISPER_MODEL` env var selects the model (default: `base`; options: tiny/base/small/medium/large-v2/large-v3).
+- `WHISPER_MODEL` env var selects the model (default: `large-v3`; options: tiny/base/small/medium/large-v2/large-v3). `large-v3` is the default because smaller models hallucinate badly on non-English audio (especially Russian) and on speech mixing technical English jargon with another language.
 - `HF_TOKEN` env var enables speaker diarization via pyannote (optional).
-- `NOTE_LANGUAGE` env var sets the note language: `auto` (default, matches transcript language), or a language code like `en`, `ru`.
+- `NOTE_LANGUAGE` env var sets the note language. Default is `auto` — **the note must be written in the same language as the detected transcript** (Russian audio → Russian note, English audio → English note, mixed audio → the dominant language). Only deviate if the user sets an explicit override code like `en`, `ru`.
 
 Supported input: audio files (mp3, wav, m4a, ogg, opus, flac, aac, wma) and video files (mp4, mkv, mov, webm). If a video file is provided, audio is extracted automatically via ffmpeg.
 
@@ -78,6 +78,8 @@ Explore the vault with `ls` to find the best existing folder for this content. I
 
 Create `<target-folder>/<Title>.md`:
 
+English audio:
+
 ```markdown
 ---
 source: "<path to file>"
@@ -102,9 +104,35 @@ tags:
 # References
 ```
 
+Russian audio (use these exact section names — do not translate to English):
+
+```markdown
+---
+source: "<path to file>"
+platform: local-audio | local-video
+date_saved: <today>
+tags:
+  - source/local
+  - topic/<topic>
+---
+
+# Ключевые моменты
+1. Тезис
+   - Подпункт
+
+![[attachments/screenshot.jpg|700]]
+
+2. Тезис, связанный со скриншотом
+
+# Что попробовать
+- [ ] Действие
+
+# Источники
+```
+
 **Rules:**
-- Language: use `NOTE_LANGUAGE` env var — `auto` (default) = transcript language, otherwise the specified language
+- Language: write the note in the language returned in the transcript's `language` field unless `NOTE_LANGUAGE` is set to an explicit override. Do not "translate to English by default" — Russian audio must produce a Russian note, including the headings (`# Ключевые моменты`, `# Что попробовать`, `# Источники`), frontmatter `tags`, and the body. Keep technical terms in their original form (English jargon stays English inside a Russian note).
 - Place `![[...]]` screenshot embeds inline within Key points where they are most relevant
 - Use `|700` width on all image embeds
-- Leave `# References` section empty — the user fills it in
+- Leave the references section empty — the user fills it in
 - Do not dump the raw transcript — the note should be a curated summary

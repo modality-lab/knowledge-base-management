@@ -5,7 +5,7 @@ description: Download a YouTube video, transcribe it with Whisper via note-audio
 
 Download and transcribe the YouTube video from the user's message, then save it as an Obsidian note in this vault.
 
-- `NOTE_LANGUAGE` env var sets the note language: `auto` (default, matches transcript language), or a language code like `en`, `ru`.
+- `NOTE_LANGUAGE` env var sets the note language. Default is `auto` — **the note must be written in the same language as the detected transcript** (Russian video → Russian note, English video → English note). Only deviate if the user sets an explicit override code like `en`, `ru`.
 
 ## Instructions
 
@@ -88,7 +88,7 @@ tags:
 ```
 
 **Rules:**
-- Language: use `NOTE_LANGUAGE` env var — `auto` (default) = transcript language, otherwise the specified language
+- Language: write the note in the language returned by the transcript's `language` field unless `NOTE_LANGUAGE` is set to an explicit override. Russian transcript → Russian note (headings: `# Ключевые моменты`, `# Что попробовать`, `# Источники`). Keep technical terms in their original form (English jargon stays English inside a Russian note).
 - Place `![[...]]` screenshot embeds inline within Key points where they are most relevant
 - Use `|700` width on all image embeds
 - Include timecode entries for each major section (aim for one entry per 2-5 minutes of content)

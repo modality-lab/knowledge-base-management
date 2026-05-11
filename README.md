@@ -50,6 +50,6 @@ Set environment variables to customize behavior:
 
 | Variable | Default | Description |
 |---|---|---|
-| `NOTE_LANGUAGE` | `auto` | Note language: `auto` matches content language, or use a code like `en`, `ru` |
-| `WHISPER_MODEL` | `base` | Whisper model size: `tiny`, `base`, `small`, `medium`, `large-v2`, `large-v3` |
+| `NOTE_LANGUAGE` | `auto` | Note language. `auto` means the note is written in the same language as the source content (Russian audio → Russian note, English video → English note). Override with a code like `en`, `ru` only if you want to force a different language. |
+| `WHISPER_MODEL` | `large-v3` | Whisper model size: `tiny`, `base`, `small`, `medium`, `large-v2`, `large-v3`. `large-v3` is the default — smaller models hallucinate badly on non-English audio and on speech that mixes languages with technical jargon. |
 | `HF_TOKEN` | — | Hugging Face token to enable speaker diarization in `note-audio` |

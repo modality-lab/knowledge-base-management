@@ -9,7 +9,7 @@ If the input is a video file (mp4, mkv, mov, webm), audio is extracted via ffmpe
 Outputs JSON to stdout with transcription segments.
 
 Environment variables:
-  WHISPER_MODEL   faster-whisper model size: tiny, base, small, medium, large-v2, large-v3 (default: base)
+  WHISPER_MODEL   faster-whisper model size: tiny, base, small, medium, large-v2, large-v3 (default: large-v3)
   HF_TOKEN        HuggingFace token — required for speaker diarization via pyannote.audio (optional)
 """
 
@@ -57,7 +57,7 @@ def extract_audio(video_path: Path, out_dir: Path) -> Path:
     return audio_path
 
 
-def transcribe_audio(audio_path: Path, model_size: str = "base") -> tuple[list[dict], str]:
+def transcribe_audio(audio_path: Path, model_size: str = "large-v3") -> tuple[list[dict], str]:
     """Transcribe using faster-whisper locally. Returns (segments, detected_language)."""
     try:
         from faster_whisper import WhisperModel
@@ -173,7 +173,7 @@ def main():
         print(json.dumps({"error": f"Unsupported file type: {ext}"}))
         sys.exit(1)
 
-    model_size = os.environ.get("WHISPER_MODEL", "base")
+    model_size = os.environ.get("WHISPER_MODEL", "large-v3")
     hf_token = os.environ.get("HF_TOKEN")
 
     out_dir = output_dir_for(str(file_path))
